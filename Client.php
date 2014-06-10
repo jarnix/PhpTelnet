@@ -1,5 +1,4 @@
 <?php
-
 namespace PhpTelnet;
 
 class Client
@@ -78,7 +77,7 @@ class Client
             }
             
             if ($errorNumber != 0) {
-                $this->throwConnectError($ret);
+                $this->throwConnectError($errorNumber);
             }
         } else {
             return true;

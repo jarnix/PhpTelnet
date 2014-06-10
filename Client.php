@@ -4,7 +4,7 @@ namespace PhpTelnet;
 class Client
 {
 
-    var $uSleepTime = 1000000;
+    var $uSleepTime = 1250000;
 
     var $loginSleepTime = 1000000;
 
@@ -52,7 +52,7 @@ class Client
             $errorNumber = 0;
             
             if ($this->connection = fsockopen($this->server, $this->port, $errno, $errstr, 5)) {
-                                
+                
                 if ($this->username !== null || $this->password !== null) {
                     
                     $r = $this->getResponse();
@@ -100,7 +100,7 @@ class Client
         fwrite($this->connection, $cmd . "\r\n");
         $this->sleep();
         $r = $this->getResponse();
-        return $this->removeNonPrintableCharacters($r);
+        return $r;
     }
 
     private function removeNonPrintableCharacters($str)
@@ -111,9 +111,10 @@ class Client
     function getResponse()
     {
         $r = '';
-        while (!feof($this->connection)) {
-            $r .= fgets($this->connection, 128);
-        }
+        do {
+            $r .= fread($this->connection, 1000);
+            $s = socket_get_status($this->connection);
+        } while ($s['unread_bytes']);
         return $this->removeNonPrintableCharacters($r);
     }
 
@@ -131,3 +132,20 @@ class Client
         throw new \Exception(constant('ERROR_' . $num));
     }
 }
+
+$client = new \PhpTelnet\Client('proxya1.web.eu1.internal', 6082);
+$client->connect();
+// authentication
+$resp = $client->getResponse();
+$arrResp = explode("\n", $resp);
+print_r($arrResp);
+$challenge = $arrResp[1];
+$authCode = hash('sha256', $challenge . "\n" . "guzzardo!" . "\n" . $challenge . "\n");
+$resp = $client->execute('auth ' . $authCode);
+$arrResp = explode("\n", $resp);
+if (substr($arrResp[0], 0, 3) == '200') {
+    echo "logged in";
+} else {
+    echo "login failure";
+}
+$client->disconnect();

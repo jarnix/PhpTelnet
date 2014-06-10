@@ -1,7 +1,17 @@
 PhpTelnet
 =========
 
-php telnet client
+(amazing) php telnet client.
+
+Basic http example :
+
+```
+$client = new \PhpTelnet\Client('10.0.1.1', 80);
+$html=$client->execute('GET /');
+echo $html;
+$client->disconnect('');
+```
+
 
 Example connecting to a varnish telnet server ("varnish1" is the name of the host, "p4ss" is the password.
 
@@ -9,7 +19,7 @@ Example connecting to a varnish telnet server ("varnish1" is the name of the hos
 $client = new \PhpTelnet\Client('varnish1', 6081);
 $client->connect();
 
-// auth
+// authentication
 $resp = $client->getResponse();
 $arrResp = explode("\n", $resp);
 $challenge = $arrResp[1];

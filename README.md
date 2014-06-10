@@ -5,17 +5,17 @@ PhpTelnet
 
 Basic http example :
 
-``
+`
 $client = new \PhpTelnet\Client('www.google.com', 80);
 $html=$client->execute('GET /');
 echo $html;
 $client->disconnect('');
-``
+`
 
 
 Example connecting to a varnish telnet server ("varnish1" is the name of the host, "p4ss" is the password.
 
-``
+`
 $client = new \PhpTelnet\Client('varnish1', 6081);
 $client->connect();
 
@@ -32,4 +32,4 @@ if (substr($arrResp[0], 0, 3) == '200') {
     echo "login failure";
 }
 $client->disconnect();`
-``
+`

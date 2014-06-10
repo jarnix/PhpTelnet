@@ -1,0 +1,4 @@
+PhpTelnet
+=========
+
+php telnet client

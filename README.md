@@ -6,7 +6,7 @@ PhpTelnet
 Basic http example :
 
 ```
-$client = new \PhpTelnet\Client('10.0.1.1', 80);
+$client = new \PhpTelnet\Client('www.google.com', 80);
 $html=$client->execute('GET /');
 echo $html;
 $client->disconnect('');

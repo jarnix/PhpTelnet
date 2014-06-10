@@ -31,5 +31,5 @@ if (substr($arrResp[0], 0, 3) == '200') {
 } else {
     echo "login failure";
 }
-$client->disconnect();`
+$client->disconnect('quit');`
 ```

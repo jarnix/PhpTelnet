@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpTelnet;
 
 class Client
@@ -131,9 +132,3 @@ class Client
         throw new \Exception(constant('ERROR_' . $num));
     }
 }
-
-
-$client = new \PhpTelnet\Client('10.0.1.1', 80);
-$html=$client->execute('GET /');
-echo $html;
-$client->disconnect('');

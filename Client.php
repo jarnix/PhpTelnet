@@ -132,20 +132,3 @@ class Client
         throw new \Exception(constant('ERROR_' . $num));
     }
 }
-
-$client = new \PhpTelnet\Client('proxya1.web.eu1.internal', 6082);
-$client->connect();
-// authentication
-$resp = $client->getResponse();
-$arrResp = explode("\n", $resp);
-print_r($arrResp);
-$challenge = $arrResp[1];
-$authCode = hash('sha256', $challenge . "\n" . "guzzardo!" . "\n" . $challenge . "\n");
-$resp = $client->execute('auth ' . $authCode);
-$arrResp = explode("\n", $resp);
-if (substr($arrResp[0], 0, 3) == '200') {
-    echo "logged in";
-} else {
-    echo "login failure";
-}
-$client->disconnect();

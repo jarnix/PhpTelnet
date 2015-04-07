@@ -16,7 +16,7 @@ $client->disconnect('');
 Example connecting to a varnish telnet server ("varnish1" is the name of the host, "wonderfulpassword" is the password)
 
 ```
-$client = new \PhpTelnet\Client('varnish1', 6081);
+$client = new \PhpTelnet\Client('varnish1', 6082);
 $client->connect();
 
 // authentication
